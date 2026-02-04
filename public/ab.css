@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #0d0d0d; /* Dark background */
+    padding: 0;
+    margin: 0;
+    color: #fff;
+}
+
+.navbar {
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff3c41;
+}
+
+.nav-link {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff3c41;
+    text-shadow: 0 0 10px #ff3c41;
+}
+
+.about-section {
+    padding: 80px 0;
+    background-color: #000000e4;
+    backdrop-filter: brightness(80%);
+    backdrop-filter: opacity();
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    margin-bottom: 20px;
+    color: #ff3c41;
+    text-shadow: 0 0 10px #ff3c41; /* Glowing red text */
+}
+
+.section-description {
+    font-size: 1.125rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.team-container {
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.team-member {
+    width: 20vw;
+    margin: 1vw;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.team-img {
+    background-color: #ffffff1f;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    background-color: #ff9a9d6c;
+    border-radius: 2vh;
+    box-shadow: 2px 4xp 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    filter:brightness(80%);
+  }
+  
+  .team-member:hover .team-img {
+    transform: scale(1.05);
+    filter: blur(0.5px);
+  }
+  
+  .overlay {
+        position: absolute;
+        bottom: -2.5%;
+        left: -2.5%;
+        width: 105%;
+        height: 30%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 1s ease;
+        opacity: 0;
+        border-radius: 0 0 2vh 2vh;
+      }
+
+.team-member:hover .overlay {
+    opacity: 1;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+}
+
+.social-icons a {
+    color: #fff;
+    margin: 5px;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ff3c41;
+    text-shadow: 0 0 5px #ff3c41;
+}
+
+.member-role {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cubes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cube {
+    width: 43px;
+    height: 43px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 1.5s ease, opacity 1.5s ease;
+    opacity: 0.7;
+}
+
+.wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.6), transparent 40%),
+                radial-gradient(circle, rgba(255, 0, 0, 0.9), transparent 60%);
+    background-size: 100% 100%;
+    animation: wave 2s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes wave {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+.cube:nth-child(odd) {
+    animation: rotateCube 5s ease-in-out infinite;
+}
+
+@keyframes rotateCube {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+  .team-member {
+    position: relative;
+    width: 80vw;
+    margin: 5vw;
+  }
+
+}

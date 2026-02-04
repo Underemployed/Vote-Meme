@@ -1,0 +1,286 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cubes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200vh;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 0;
+}
+
+.cube {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+    transition: transform 1.5s ease;
+    opacity: 0.3;
+}
+
+.wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.3), transparent 40%),
+                radial-gradient(circle, rgba(255, 0, 0, 0.6), transparent 60%);
+    background-size: 100% 100%;
+    animation: wave 2s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes wave {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+.cube:nth-child(odd) {
+    animation: rotateCube 5s ease-in-out infinite;
+}
+
+@keyframes rotateCube {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+
+.login-form {
+    position: relative;
+    top: 25vh;
+    left: 35vw ;
+    background-color: #0000000e;
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    width: 30vw;
+    height: 50vh;
+}
+
+.login-form h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e74c3c;
+    text-align: center;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.411);
+}
+
+.login-form p{
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.login-form a{
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.login-form .form-control {
+    border-radius: 8px;
+    margin-left: 0.75vw;
+    margin-bottom: 10px;
+    padding: 1vh;
+    background-color: #4444443a;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.login-form .form-label{
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.mb-3{
+text-align: center;
+margin-top: 1vh;
+}
+
+#btm{
+    margin-top: 4vh;
+    margin-left: 12vw;
+}
+
+.login-form .form-control:focus {
+    border-color: #e74c3c;
+    box-shadow: none;
+}
+
+.login-form .btn-primary {
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.login-form .btn-primary:hover {
+    background-color: #c0392b;
+}
+
+#reglnk{
+    text-decoration: none;
+    font-size: large;
+    color: red;
+}
+
+@media (max-width: 768px) {
+
+
+
+}
+
+.registration-form {
+    position: absolute;
+    left: 25vw;
+    background-color: #0000000f;
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    width: 40vw;
+    text-align: center;
+}
+
+.registration-form h2 {
+    position: relative;
+    top: 3vh;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e74c3c;
+    text-align: center;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.411);
+}
+
+.registration-form .form-control:focus {
+    border-color: #e74c3c;
+    box-shadow: none;
+}
+
+.registration-form .btn-primary {
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.registration-form label{
+    position: relative;
+    left: 5vw;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.registration-form .btn-primary:hover {
+    background-color: #c0392b;
+}
+
+.registration-form .form-group {
+    margin-bottom: 1.5rem; /* Added spacing between form groups */
+    display: flex;
+}
+
+#year label{
+    margin-right: 1vw;
+}
+
+.registration-form .form-control {
+    border-radius: 8px;
+    background-color: #4444443a;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 0.5rem; /* Padding inside text fields */
+    position: relative;
+    left: 10vw;
+}
+
+.registration-form .btn-primary {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.427);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem; /* Increased padding for buttons */
+    font-size: 1rem;
+    position: relative;
+    left: 15vw;
+}
+
+.registration-form label {
+    margin-bottom: 0.5rem; /* Space below labels */
+    display: block; /* Make labels block elements for better spacing */
+}
+
+
+.strength-status {
+    font-size: 0.9em;
+    color: #dc3545; /* Red for errors */
+}
+.strength-status.valid {
+    color: #28a745; /* Green for valid */
+}
+
+.form-control #idCard{
+    outline: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 1vh 2vh;
+    background-color: #c61e1e;
+    color: white;
+    border-radius: 1vh;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .file-label i {
+    margin-right: 0.75vh;
+  }
+  
+  .file-label:hover {
+    background-color: #8a2020;
+  }

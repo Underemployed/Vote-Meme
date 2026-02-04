@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poster Design Competition</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+    
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+    
+    .admin-link {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .admin-link a {
+      background: white;
+      color: #667eea;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    
+    .admin-link a:hover {
+      transform: scale(1.05);
+    }
+    
+    .filter-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .filter-section select {
+      padding: 10px;
+      border: 2px solid #667eea;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    
+    .posters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+    
+    .poster-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .poster-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    
+    .poster-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      background: #f0f0f0;
+      cursor: pointer;
+    }
+    
+    .poster-info {
+      padding: 20px;
+    }
+    
+    .poster-info h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+    
+    .poster-meta {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+    
+    .poster-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .like-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .like-btn:hover {
+      background: #5568d3;
+      transform: scale(1.05);
+    }
+    
+    .like-btn.liked {
+      background: #e74c3c;
+    }
+    
+    .like-btn.liked:hover {
+      background: #c0392b;
+    }
+    
+    .like-count {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .canva-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    
+    .canva-link:hover {
+      text-decoration: underline;
+    }
+    
+    .no-posters {
+      text-align: center;
+      color: white;
+      font-size: 1.5em;
+      padding: 50px;
+    }
+    
+    /* Modal for full image */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .posters-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎨 Poster Design Competition</h1>
+      <p>Vote for your favorite designs!</p>
+    </header>
+    
+    <div class="admin-link">
+      <a href="/admin">📤 Admin Panel - Upload Posters</a>
+    </div>
+    
+    <div class="filter-section">
+      <label for="participantFilter"><strong>Filter by Participant:</strong></label>
+      <select id="participantFilter">
+        <option value="">All Participants</option>
+        <% participants.forEach(participant => { %>
+          <option value="<%= participant._id %>"><%= participant.name %></option>
+        <% }); %>
+      </select>
+      
+      <label for="sortBy"><strong>Sort by:</strong></label>
+      <select id="sortBy">
+        <option value="likes">Most Liked</option>
+        <option value="recent">Most Recent</option>
+        <option value="name">Participant Name</option>
+      </select>
+    </div>
+    
+    <div class="posters-grid" id="postersGrid">
+      <% if (posters.length === 0) { %>
+        <div class="no-posters">No posters uploaded yet. Check back soon!</div>
+      <% } else { %>
+        <% posters.forEach(poster => { %>
+          <div class="poster-card" data-participant-id="<%= poster.participantId._id %>" data-likes="<%= poster.likes %>" data-date="<%= poster.uploadDate %>">
+            <% if (poster.imageUrl) { %>
+              <img src="<%= poster.imageUrl %>" alt="<%= poster.participantName %>'s poster" class="poster-image" onclick="openModal(this.src)">
+            <% } else { %>
+              <div class="poster-image" style="display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <p>No image uploaded</p>
+              </div>
+            <% } %>
+            
+            <div class="poster-info">
+              <h3><%= poster.participantName %></h3>
+              <div class="poster-meta">
+                <% if (poster.participantId.department) { %>
+                  <%= poster.participantId.department %> - <%= poster.participantId.year %>
+                <% } %>
+              </div>
+              
+              <div class="poster-actions">
+                <button 
+                  class="like-btn <%= poster.likedBy.includes(voterId) ? 'liked' : '' %>" 
+                  onclick="toggleLike('<%= poster._id %>', this)"
+                  data-poster-id="<%= poster._id %>">
+                  <span class="like-icon"><%= poster.likedBy.includes(voterId) ? '❤️' : '🤍' %></span>
+                  <span class="like-text"><%= poster.likedBy.includes(voterId) ? 'Unlike' : 'Like' %></span>
+                </button>
+                <span class="like-count"><%= poster.likes %> ❤️</span>
+              </div>
+              
+              <% if (poster.canvaLink) { %>
+                <a href="<%= poster.canvaLink %>" target="_blank" class="canva-link">View on Canva →</a>
+              <% } %>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+  
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+  
+  <script>
+    function toggleLike(posterId, button) {
+      const isLiked = button.classList.contains('liked');
+      const endpoint = isLiked ? `/api/unlike/${posterId}` : `/api/like/${posterId}`;
+      
+      fetch(endpoint, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            button.classList.toggle('liked');
+            const likeIcon = button.querySelector('.like-icon');
+            const likeText = button.querySelector('.like-text');
+            const likeCount = button.parentElement.querySelector('.like-count');
+            
+            if (button.classList.contains('liked')) {
+              likeIcon.textContent = '❤️';
+              likeText.textContent = 'Unlike';
+            } else {
+              likeIcon.textContent = '🤍';
+              likeText.textContent = 'Like';
+            }
+            
+            likeCount.textContent = data.likes + ' ❤️';
+            
+            // Update data attribute for sorting
+            button.closest('.poster-card').dataset.likes = data.likes;
+          } else {
+            alert(data.error || 'Failed to update like');
+          }
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          alert('Failed to update like');
+        });
+    }
+    
+    function openModal(src) {
+      document.getElementById('imageModal').style.display = 'block';
+      document.getElementById('modalImage').src = src;
+    }
+    
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+    
+    // Filter and sort functionality
+    document.getElementById('participantFilter').addEventListener('change', filterPosters);
+    document.getElementById('sortBy').addEventListener('change', sortPosters);
+    
+    function filterPosters() {
+      const selectedParticipant = document.getElementById('participantFilter').value;
+      const cards = document.querySelectorAll('.poster-card');
+      
+      cards.forEach(card => {
+        if (!selectedParticipant || card.dataset.participantId === selectedParticipant) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    function sortPosters() {
+      const sortBy = document.getElementById('sortBy').value;
+      const grid = document.getElementById('postersGrid');
+      const cards = Array.from(document.querySelectorAll('.poster-card'));
+      
+      cards.sort((a, b) => {
+        if (sortBy === 'likes') {
+          return parseInt(b.dataset.likes) - parseInt(a.dataset.likes);
+        } else if (sortBy === 'recent') {
+          return new Date(b.dataset.date) - new Date(a.dataset.date);
+        } else if (sortBy === 'name') {
+          const nameA = a.querySelector('h3').textContent;
+          const nameB = b.querySelector('h3').textContent;
+          return nameA.localeCompare(nameB);
+        }
+      });
+      
+      cards.forEach(card => grid.appendChild(card));
+    }
+  </script>
+</body>
+</html>
