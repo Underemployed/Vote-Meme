@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Poster - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Header -->
+  <div class="bg-white shadow">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">Add New Poster</h1>
+      <div class="flex items-center gap-4">
+        <a href="/leaderboard" class="text-blue-600 hover:text-blue-700 font-semibold">Leaderboard</a>
+        <a href="/index" class="text-gray-600 hover:text-gray-700">View Posts</a>
+        <a href="/logout" class="text-red-600 hover:text-red-700 font-semibold">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <% if (error) { %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <% if (success) { %>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
+          <%= success %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/add-post" enctype="multipart/form-data" class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+            Select or Enter Name
+          </label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            list="existing-names"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+            placeholder="Enter person's name"
+          >
+          <datalist id="existing-names">
+            <% names.forEach(name => { %>
+              <option value="<%= name %>">
+            <% }); %>
+          </datalist>
+          <p class="mt-2 text-sm text-gray-500">
+            Start typing to see existing names or enter a new one
+          </p>
+        </div>
+
+        <div>
+          <label for="posterImage" class="block text-sm font-medium text-gray-700 mb-2">
+            Poster Image
+          </label>
+          <div class="mt-2">
+            <input 
+              type="file" 
+              id="posterImage" 
+              name="posterImage" 
+              accept="image/*"
+              required
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+            >
+          </div>
+          <p class="mt-2 text-sm text-gray-500">
+            PNG, JPG, GIF up to 10MB
+          </p>
+        </div>
+
+        <!-- Image Preview -->
+        <div id="imagePreview" class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Preview</label>
+          <img id="preview" src="" alt="Preview" class="w-full max-w-md rounded-lg shadow-md">
+        </div>
+
+        <button 
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg"
+        >
+          Upload Poster
+        </button>
+      </form>
+    </div>
+
+    <!-- Tips -->
+    <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+      <h3 class="font-semibold text-blue-900 mb-2">📌 Tips</h3>
+      <ul class="text-sm text-blue-800 space-y-1">
+        <li>• Use high-quality images for best results</li>
+        <li>• Multiple posters can have the same name</li>
+        <li>• Images will be displayed in a card format</li>
+        <li>• Users will vote with like/dislike buttons</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Image preview
+    document.getElementById('posterImage').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('preview').src = e.target.result;
+          document.getElementById('imagePreview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
